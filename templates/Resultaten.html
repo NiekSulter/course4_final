@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Resultaten</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Stylesheet3.css') }}">
+</head>
+<body>
+<ul>
+  <li><a href="StartPagina.html">Home</a></li>
+  <li><a class="active" href="#Resultaten">Resultaten</a></li>
+</ul>
+<h1>Eiwitten in champignon compost</h1>
+<ul class="box">
+<form method="post">
+    <div align="left">
+        <p>Filter:</p>
+        <input type="text" name="filter">
+        <input type="submit">
+    </div>
+    <div align="left">
+        <p>Filter on:</p>
+        <input type="checkbox" id="protein_name" name="protein_name" value="1" checked>
+        <label for="protein_name"> Protein name</label>
+        <input type="checkbox" id="stam" name="stam" value="stam" checked>
+        <label for="stam"> Stam</label>
+        <input type="checkbox" id="Function" name="Function" value="Function" checked>
+        <label for="Function"> Description:</label>
+    </div>
+</form>
+</ul>
+<table>
+    <tr>
+        <th>Protein name</th>
+        <th>Stam</th>
+        <th>Function</th>
+    </tr>
+    {% for num in length %}
+        <tr>
+            <td> {{ list_protein_name[num] }}</td>
+            <td>{{ list_lineage[num] }}</td>
+            <td>{{ list_description[num] }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+</body>
+</html>
