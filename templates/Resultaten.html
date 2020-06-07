@@ -7,8 +7,10 @@
 </head>
 <body>
 <ul>
-  <li><a href="StartPagina.html">Home</a></li>
+  <li><a href="/">Home</a></li>
   <li><a class="active" href="#Resultaten">Resultaten</a></li>
+    <li><a href="blast.html">Blast</a></li>
+    <li><a href="blastuser.html">User blast results</a></li>
 </ul>
 <h1>Eiwitten in champignon compost</h1>
 <ul class="box">
@@ -21,25 +23,35 @@
     <div align="left">
         <p>Filter on:</p>
         <input type="checkbox" id="protein_name" name="protein_name" value="1" checked>
-        <label for="protein_name"> Protein name</label>
+        <label for="protein_name"> Protein function</label>
         <input type="checkbox" id="stam" name="stam" value="stam" checked>
-        <label for="stam"> Stam</label>
+        <label for="stam"> Taxonomy</label>
+        <input type="checkbox" id="organisme" name="organisme" value="organisme" checked>
+        <label for="Organisme"> Organisme</label>
         <input type="checkbox" id="Function" name="Function" value="Function" checked>
         <label for="Function"> Description:</label>
     </div>
 </form>
 </ul>
-<table>
+<table border="1">
     <tr>
-        <th>Protein name</th>
-        <th>Stam</th>
-        <th>Function</th>
+        <th>Protein function</th>
+        <th>Organism</th>
+        <th>Accession</th>
+        <th>E-value</th>
+        <th>Percent identity</th>
+        <th>Query Cover</th>
+        <th>Lineage</th>
     </tr>
-    {% for num in length %}
+    {% for i in list_all %}
         <tr>
-            <td> {{ list_protein_name[num] }}</td>
-            <td>{{ list_lineage[num] }}</td>
-            <td>{{ list_description[num] }}</td>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+            <td>{{ i[4] }}</td>
+            <td>{{ i[5] }}</td>
+            <td>{{ i[6] }}</td>
         </tr>
     {% endfor %}
 </table>

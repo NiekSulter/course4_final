@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blast</title>
+    <link rel="Stylesheet" href="{{ url_for('static', filename='css/Stylesheet3.css') }}">
+</head>
+<body>
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="Resultaten.html">Resultaten</a></li>
+    <li><a class="active">Blast</a></li>
+    <li><a href="blastuser.html">User blast results</a></li>
+</ul>
+
+    <h3>Blastx a DNA sequence:</h3>
+<form method="post">
+    <p>Header:</p>
+    <input type="text" name="header">
+    <p>Sequence:</p>
+    <textarea rows="5" cols="30" name="seq"></textarea>
+    <input type="submit" value="Blast">
+    <p>Email:</p>
+    <input type="text" name="email">
+    <p>Recieve an email notification when the blast results for your job are available. </p>
+</form>
+<br />
+<p>Blast status: {{ status }}</p>
+<p>Blast job ID: {{ jid }}</p>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User blast results</title>
+    <link rel="Stylesheet" href="{{ url_for('static', filename='css/Stylesheet3.css') }}">
+</head>
+<body>
+<ul>
+    <li><a href="/">Home</a></li>
+    <li><a href="Resultaten.html">Resultaten</a></li>
+    <li><a href="blast.html">Blast</a></li>
+    <li><a class="active">User blast results</a></li>
+</ul>
+</body>
+<h3>User submitted blast results</h3>
+<p>Result viewer for the websites built in <a href="blast.html">blast</a> tool</p>
+<form method="post">
+    <input type="text" name="jid">
+    <input type="submit" value="Submit">
+</form>
+<p>Job header: {{ header }}</p>
+<br />
+<p>Job sequence: {{ sequence }}</p>
+<br />
+<table border="1">
+    <tr>
+        <th>Protein function</th>
+        <th>Organism</th>
+        <th>Accession</th>
+        <th>E-value</th>
+        <th>Percent identity</th>
+        <th>Query Cover</th>
+        <th>Job ID</th>
+    </tr>
+    {% for i in list_all %}
+        <tr>
+            <td>{{ i[0] }}</td>
+            <td>{{ i[1] }}</td>
+            <td>{{ i[2] }}</td>
+            <td>{{ i[3] }}</td>
+            <td>{{ i[4] }}</td>
+            <td>{{ i[5] }}</td>
+            <td>{{ i[6] }}</td>
+        </tr>
+    {% endfor %}
+</table>
+</html>
