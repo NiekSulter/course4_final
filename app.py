@@ -1,5 +1,5 @@
+from flask import Flask, render_template, request
 import Database
-from flask import Flask, render_template, request, url_for
 from blast import check_dna
 
 app = Flask(__name__)
@@ -21,16 +21,17 @@ def display_resultaten():
         if filteren == "":
             list_all = Database.database()
         else:
-            list_all = Database.database_filter(filteren, checkbox_p, checkbox_s,
-                                            checkbox_f, checkbox_o)
-        return render_template("Resultaten.html", filter=filteren, list_all=list_all)
+            list_all = Database.database_filter(filteren, checkbox_p,
+                                                checkbox_s,
+                                                checkbox_f, checkbox_o)
+        return render_template("Resultaten.html",
+                               filter=filteren, list_all=list_all)
     else:
         return render_template("Resultaten.html")
 
 
 @app.route("/blast.html", methods=['POST', 'GET'])
 def o_blast():
-    status = ''
     if request.method == 'POST':
         header = request.form['header']
         sequence = request.form['seq']
@@ -50,7 +51,8 @@ def user_blast_results():
     if request.method == 'POST':
         jid = request.form['jid']
         header, sequence, list_all = Database.userblast(jid)
-        return render_template('blastuser.html', header=header, sequence=sequence, list_all=list_all)
+        return render_template('blastuser.html', header=header,
+                               sequence=sequence, list_all=list_all)
     else:
         return render_template('blastuser.html')
 
