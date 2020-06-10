@@ -7,11 +7,17 @@ app = Flask(__name__)
 
 @app.route('/', methods=['POST', 'GET'])
 def display():
+    """Verwijzing naar de home pagina
+    :return: StartPagina.html
+    """
     return render_template("StartPagina.html")
 
 
 @app.route("/Resultaten.html", methods=['POST', 'GET'])
 def display_resultaten():
+    """Weergeven van de resultaten uit de database
+    :return: Resultaten.html en een lijst met alle (gefilterde) resultaten
+    """
     if request.method == 'POST':
         filteren = request.form['filter']
         checkbox_p = ('protein_name' in request.form.keys())
@@ -32,6 +38,9 @@ def display_resultaten():
 
 @app.route("/blast.html", methods=['POST', 'GET'])
 def o_blast():
+    """Ingebouwde blast functie
+    :return: blast.html met de status van de blast
+    """
     if request.method == 'POST':
         header = request.form['header']
         sequence = request.form['seq']
@@ -48,6 +57,9 @@ def o_blast():
 
 @app.route('/blastuser.html', methods=['POST', 'GET'])
 def user_blast_results():
+    """Resultaten van de ingebouwde blast functie
+    :return: blastuser.html met de resultaten van een blast job
+    """
     if request.method == 'POST':
         jid = request.form['jid']
         header, sequence, list_all = Database.userblast(jid)
