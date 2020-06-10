@@ -9,12 +9,12 @@ from automail import mail_notifier
 
 
 def uid_gen(c):
+    """Genereert een uniek id van x aantal letters en cijfers
+    en checkt of dit ID al in de db aanwezig is.
+    :param c: De lengte van het ID
+    :return: Het id
+    """
     try:
-        """Genereert een uniek id van x aantal letters en cijfers
-        en checkt of dit ID al in de db aanwezig is.
-        :param c: De lengte van het ID
-        :return: Het id
-        """
         t = True
         while t:
             uid = ''.join(
@@ -43,13 +43,13 @@ def uid_gen(c):
 
 
 def check_dna(header, seq, remail):
+    """Maakt een Biopython Seq object van de ingevoerde sequentie.
+    :param header: door de gebruiker ingevoerde header
+    :param seq: door de gebruiker ingevoerde sequentie
+    :param remail: door de gebruiker ingevoerde email
+    :return: status van de blast
+    """
     try:
-        """Maakt een Biopython Seq object van de ingevoerde sequentie.
-        :param header: door de gebruiker ingevoerde header
-        :param seq: door de gebruiker ingevoerde sequentie
-        :param remail: door de gebruiker ingevoerde email
-        :return: status van de blast
-        """
         seq_d = Seq(seq, IUPAC.unambiguous_dna)
         if seq_d:
             uid = seq_insert(header, seq)
@@ -65,13 +65,13 @@ def check_dna(header, seq, remail):
 
 
 def bl(seq, job_id, remail):
+    """Functie die de blast en het parsen aanstuurt.
+    :param seq: door de gebruiker ingevoerde sequentie
+    :param job_id: uniek id voor de huidige job
+    :param remail: door de gebruiker ingevoerde email
+    :return: geen
+    """
     try:
-        """Functie die de blast en het parsen aanstuurt.
-        :param seq: door de gebruiker ingevoerde sequentie
-        :param job_id: uniek id voor de huidige job
-        :param remail: door de gebruiker ingevoerde email
-        :return: geen
-        """
         print('starting blast')
         result = NCBIWWW.qblast('blastx', 'nr', seq, hitlist_size=10)
         print('blast complete')
@@ -84,12 +84,12 @@ def bl(seq, job_id, remail):
 
 
 def parse_result(result, job_id):
+    """Parsen van de resultaten uit de NCBIWWW blast
+    :param result: Biopython object met alle alignments
+    :param job_id: uniek id voor de huidige job
+    :return: geen
+    """
     try:
-        """Parsen van de resultaten uit de NCBIWWW blast
-        :param result: Biopython object met alle alignments
-        :param job_id: uniek id voor de huidige job
-        :return: geen
-        """
         blast_record = NCBIXML.read(result)
         for alignment in blast_record.alignments:
             # ID systeem -> hervormen naar uid systeem
@@ -130,8 +130,9 @@ def parse_result(result, job_id):
             query_cover = round((al / lenseq) * 100)
 
             # percent identity ophalen.
-            percent_identity = round(alignment.hsps[0].identities / alignment.hsps[
-                0].align_length * 100)
+            percent_identity = \
+                round(alignment.hsps[0].identities / alignment.hsps[
+                    0].align_length * 100)
 
             # Connectie aan de database maken en de resultaten inserten.
             conn = mysql.connector.connect(
@@ -158,12 +159,12 @@ def parse_result(result, job_id):
 
 
 def seq_insert(header, seq):
+    """Inserten van de sequentie, header en job id in de database
+    :param header: door de gebruiker ingevoerde header
+    :param seq: door de gebruiker ingevoerde sequentie
+    :return: uniek id voor de huidige job
+    """
     try:
-        """Inserten van de sequentie, header en job id in de database
-        :param header: door de gebruiker ingevoerde header
-        :param seq: door de gebruiker ingevoerde sequentie
-        :return: uniek id voor de huidige job
-        """
         conn = mysql.connector.connect(
             host="opusflights.com",
             user="course4",

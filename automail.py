@@ -3,9 +3,10 @@ import ssl
 
 
 def mail_notifier(remail, jid):
+    """Stuurt een email notificatie mnaar de gebruiker zodra
+    de blast klaar is.
+    """
     try:
-        """Stuurt een email notificatie mnaar de gebruiker zodra de blast klaar is.
-        """
         port = 465
         email = "1a3blastapp@gmail.com"
         password = "3-gj56QJc'5{"
@@ -19,7 +20,8 @@ def mail_notifier(remail, jid):
         
         """.format(str(jid))
 
-        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) as server:
+        with smtplib.SMTP_SSL("smtp.gmail.com", port, context=context) \
+                as server:
             server.login(email, password)
             server.sendmail(email, str(remail), message)
     except ValueError:
